@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>AIAPGET StudyBuddy | Ayurveda PG Entrance Tracker</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Mobile-first academic revision, syllabus tracker, and focus companion for BAMS / Ayurveda PG (AIAPGET) aspirants.">
+  <meta name="theme-color" content="#070b19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AIAPGET Prep">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Fonts: Plus Jakarta Sans for UI + Yatra One for Sanskrit titles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Yatra One"', 'Georgia', 'serif'],
+          },
+          colors: {
+            midnight: {
+              bg: '#070b19',
+              card: '#0f1629',
+              elevated: '#161f36',
+              border: 'rgba(30, 41, 59, 0.8)'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#070b19] text-slate-100 font-sans min-h-full pb-safe antialiased select-none selection:bg-indigo-600 selection:text-white">
+
+  <!-- Mobile Shell Wrapper (Centered on desktop, fluid on phone) -->
+  <div class="max-w-md mx-auto min-h-screen bg-[#070b19] flex flex-col relative shadow-2xl border-x border-slate-800/80">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-30 bg-[#070b19]/90 backdrop-blur-md border-b border-slate-800/80 px-4 py-3 flex items-center justify-between">
+      <!-- Logo & App Brand -->
+      <div class="flex items-center space-x-2.5">
+        <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm flex items-center justify-center p-0.5 bg-gradient-to-br from-indigo-500 to-emerald-600 shrink-0">
+          <img src="icon.svg" alt="Kalasha Icon" class="w-full h-full object-contain">
+        </div>
+        <div>
+          <h1 class="text-sm font-extrabold text-white leading-tight flex items-center gap-1.5">
+            AIAPGET <span class="text-[10px] px-1.5 py-0.2 rounded font-bold bg-indigo-950 border border-indigo-800 text-indigo-300">StudyBuddy</span>
+          </h1>
+          <p class="text-[10px] text-slate-400 font-medium">BAMS PG Entrance Companion</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls in Header -->
+      <div class="flex items-center space-x-1.5">
+        <!-- Quick Sthana Picker Button -->
+        <button onclick="openSthanaPicker()" title="Sthana Picker" class="px-2.5 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-indigo-300 flex items-center space-x-1 tap-feedback transition">
+          <span>📖 Sthanas</span>
+        </button>
+
+        <!-- User Profile Pill -->
+        <button onclick="openProfileModal()" title="Student Profile" class="flex items-center space-x-1.5 pl-2 pr-2.5 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-slate-200 tap-feedback transition">
+          <span id="header-user-avatar" class="text-sm">🌿</span>
+          <span id="header-user-name" class="truncate max-w-[80px]">Dr. Ananya</span>
+        </button>
+
+        <!-- Settings Cog -->
+        <button onclick="openSettingsModal()" aria-label="Settings" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#0f1629] border border-transparent hover:border-slate-800 tap-feedback transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN BODY TABS -->
+    <main class="flex-1 p-4 space-y-5">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: DASHBOARD -->
+      <!-- ============================================== -->
+      <section id="tab-content-dashboard" class="space-y-4">
+
+        <!-- Dynamic Exam Countdown & Pace Engine Card -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-[#0f1629] to-[#070b19] text-white p-5 shadow-xl border border-indigo-900/50">
+          <div class="absolute -right-8 -top-8 w-44 h-44 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-8 -bottom-8 w-44 h-44 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="flex items-start justify-between relative z-10">
+            <div>
+              <div class="flex items-center space-x-1.5 text-xs text-indigo-300 font-semibold tracking-wide uppercase">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>AIAPGET Target Countdown</span>
+              </div>
+              <div class="mt-1 flex items-baseline space-x-2">
+                <span id="dash-days-remaining" class="text-4xl font-extrabold tracking-tight text-white font-sans">189</span>
+                <span class="text-xs font-bold text-slate-300 uppercase">Days Left</span>
+              </div>
+              <div class="text-xs text-slate-300 mt-1 flex items-center space-x-2">
+                <span>Exam: <strong id="dash-exam-date" class="text-white">May 30, 2027</strong></span>
+                <span>·</span>
+                <span id="dash-buffer-days" class="text-indigo-300 font-semibold">30d Buffer</span>
+              </div>
+            </div>
+
+            <!-- Edit Exam Date Trigger -->
+            <button onclick="openEditTargetsModal()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl text-xs font-bold text-white border border-white/15 flex items-center space-x-1 tap-feedback">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              <span>Edit</span>
+            </button>
+          </div>
+
+          <!-- Required Daily Pace Bar -->
+          <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between relative z-10">
+            <div class="flex items-center space-x-2">
+              <div class="p-1.5 bg-emerald-500/20 rounded-xl text-emerald-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div>
+                <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Required Daily Pace</div>
+                <div class="text-sm font-extrabold text-emerald-400 flex items-center space-x-1">
+                  <span id="dash-daily-pace">1.1 Topics / Day</span>
+                  <span id="dash-subtopic-pace" class="text-[11px] font-normal text-slate-300">(3.4 subtopics/d)</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Effective Study Time</div>
+              <div id="dash-effective-days" class="text-xs font-bold text-slate-200">159 Study Days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Readiness Score Card (0–100%) -->
+        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="text-sm font-bold text-white">Exam Readiness Score</h2>
+              <p class="text-[11px] text-slate-400">Blended from syllabus, revisions & daily rhythm</p>
+            </div>
+            <span id="dash-readiness-level" class="text-xs font-bold px-2.5 py-1 rounded-full text-indigo-400 bg-indigo-950/70 border border-indigo-800">
+              Steadily Progressing 📈
+            </span>
+          </div>
+
+          <div class="flex items-center justify-around py-2">
+            <!-- Animated SVG Ring -->
+            <div class="relative w-32 h-32 flex items-center justify-center shrink-0">
+              <svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="54" stroke="#1e293b" stroke-width="9" fill="transparent"/>
+                <circle id="readiness-ring-circle" cx="60" cy="60" r="54" stroke="url(#ringGrad)" stroke-width="9" stroke-linecap="round" fill="transparent" class="progress-ring-circle" style="stroke-dasharray: 339.29; stroke-dashoffset: 135;"/>
+                <defs>
+                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#6366f1"/>
+                    <stop offset="100%" stop-color="#10b981"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="absolute text-center">
+                <span id="dash-readiness-score" class="text-2xl font-black text-white font-sans">64%</span>
+                <span class="block text-[9px] uppercase font-bold tracking-wider text-slate-400">Readiness</span>
+              </div>
+            </div>
+
+            <!-- Sub-breakdown metrics -->
+            <div class="space-y-2.5 text-xs flex-1 pl-4">
+              <div>
+                <div class="flex justify-between text-slate-300 font-medium mb-1">
+                  <span>Syllabus Covered</span>
+                  <span id="dash-syllabus-pct" class="font-bold text-white">52%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-indigo-500 h-1.5 rounded-full" style="width: 52%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-300 font-medium mb-1">
+                  <span>Revision Rhythm</span>
+                  <span id="dash-revision-pct" class="font-bold text-white">78%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 78%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-300 font-medium mb-1">
+                  <span>Daily Goal Adherence</span>
+                  <span id="dash-rhythm-pct" class="font-bold text-white">68%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-amber-500 h-1.5 rounded-full" style="width: 68%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Targets Card with Quick Increment Buttons -->
+        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>🎯 Today's Quota</span>
+            </h2>
+            <button onclick="document.getElementById('modal-offline-log').classList.remove('hidden')" class="text-xs text-indigo-400 font-bold hover:underline">
+              + Log Offline Hours
+            </button>
+          </div>
+
+          <!-- Focus Hours -->
+          <div>
+            <div class="flex justify-between text-xs mb-1.5">
+              <span class="font-semibold text-slate-300">Focus Hours</span>
+              <span id="dash-hours-text" class="font-bold text-indigo-400">2.5 / 6.0 hrs</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+              <div id="dash-hours-bar" class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: 42%"></div>
+            </div>
+          </div>
+
+          <!-- MCQ Quota -->
+          <div>
+            <div class="flex justify-between text-xs mb-1.5">
+              <span class="font-semibold text-slate-300">MCQ Quota</span>
+              <span id="dash-mcq-text" class="font-bold text-emerald-400">40 / 100 MCQs</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden mb-2.5">
+              <div id="dash-mcq-bar" class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2.5 rounded-full transition-all duration-500" style="width: 40%"></div>
+            </div>
+
+            <!-- Quick MCQ Increment Buttons -->
+            <div class="flex items-center space-x-2">
+              <span class="text-[11px] text-slate-400 font-medium">Quick add:</span>
+              <button onclick="incrementMcq(10)" class="px-3 py-1.5 bg-[#161f36] hover:bg-[#202c4c] text-slate-200 text-xs font-bold rounded-xl tap-feedback border border-slate-700">
+                +10 MCQs
+              </button>
+              <button onclick="incrementMcq(25)" class="px-3 py-1.5 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 text-xs font-bold rounded-xl tap-feedback border border-emerald-800">
+                +25 MCQs
+              </button>
+              <button onclick="incrementMcq(50)" class="px-3 py-1.5 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 text-xs font-bold rounded-xl tap-feedback border border-indigo-800">
+                +50 MCQs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Primary Button: Log Today's Studied Topic -->
+        <button onclick="openLogTopicModal()" class="w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/40 flex items-center justify-center space-x-2.5 tap-feedback transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+          <span>Log Today's Studied Topic</span>
+        </button>
+
+        <!-- Due Revisions Snapshot Card -->
+        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>🔁 Revisions Due Snapshot</span>
+            </h2>
+            <button onclick="switchTab('revisions')" class="text-xs text-indigo-400 font-bold hover:underline">
+              View All Queue →
+            </button>
+          </div>
+          <div id="dash-due-snapshot" class="space-y-2">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: SYLLABUS TRACKER & PENDING CALCULATOR -->
+      <!-- ============================================== -->
+      <section id="tab-content-syllabus" class="hidden space-y-4">
+
+        <!-- Pending Calculator Banner -->
+        <div class="bg-gradient-to-br from-[#121a30] to-[#0a1024] text-white p-4 rounded-3xl shadow-md border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-1.5">
+              <span>📊 Live Syllabus Audit</span>
+            </span>
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800 px-2.5 py-0.5 rounded-full">
+              Pace: <span id="syl-pace-banner">1.1 / day</span>
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-center pt-1">
+            <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
+              <div id="syl-pending-topics" class="text-xl font-black text-white">35</div>
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Pending Topics</div>
+            </div>
+            <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
+              <div id="syl-pending-subtopics" class="text-xl font-black text-indigo-400">112</div>
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Subtopics Left</div>
+            </div>
+            <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
+              <div id="syl-overdue-revs" class="text-xl font-black text-rose-400">2</div>
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Overdue Revs</div>
+            </div>
+          </div>
+
+          <!-- Category Progress Bars -->
+          <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs">
+            <div class="flex justify-between text-slate-300 text-[11px]">
+              <span>Brihattrayi (Major Samhitas)</span>
+              <span id="syl-brihat-text" class="font-bold text-white">45%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="syl-brihat-bar" class="bg-rose-500 h-1.5 rounded-full" style="width: 45%"></div>
+            </div>
+
+            <div class="flex justify-between text-slate-300 text-[11px] pt-1">
+              <span>Laghutrayi & Others</span>
+              <span id="syl-laghu-text" class="font-bold text-white">30%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="syl-laghu-bar" class="bg-amber-500 h-1.5 rounded-full" style="width: 30%"></div>
+            </div>
+
+            <div class="flex justify-between text-slate-300 text-[11px] pt-1">
+              <span>15 BAMS Core Subjects</span>
+              <span id="syl-sub-text" class="font-bold text-white">55%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="syl-sub-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 55%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Filterable Categories Bar -->
+        <div class="flex space-x-1 p-1 bg-[#0f1629] rounded-2xl text-xs font-bold text-slate-400 border border-slate-800">
+          <button onclick="syllabusCategoryFilter='brihattrayi'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='brihattrayi' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+            Brihattrayi
+          </button>
+          <button onclick="syllabusCategoryFilter='laghutrayi'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='laghutrayi' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+            Laghutrayi
+          </button>
+          <button onclick="syllabusCategoryFilter='subjects'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='subjects' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+            15 Subjects
+          </button>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="space-y-2">
+          <div class="relative">
+            <svg class="w-4 h-4 absolute left-3 top-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="syllabus-search-input" placeholder="Search Samhitas, Adhyayas, Charaka, Jwara..." 
+              oninput="syllabusSearchQuery = this.value; renderSyllabus(calculatePaceAndStats());"
+              class="w-full pl-9 pr-4 py-2.5 bg-[#0f1629] border border-slate-800 rounded-2xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+          </div>
+
+          <div class="flex items-center justify-between space-x-2 text-xs">
+            <select onchange="syllabusPriorityFilter = this.value; renderSyllabus(calculatePaceAndStats());" 
+              class="px-2.5 py-1.5 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none">
+              <option value="all">All Priorities</option>
+              <option value="High-Yield">High-Yield Only</option>
+              <option value="Core">Core Only</option>
+              <option value="Scoring">Scoring Only</option>
+            </select>
+
+            <select onchange="syllabusStatusFilter = this.value; renderSyllabus(calculatePaceAndStats());" 
+              class="px-2.5 py-1.5 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+
+            <button onclick="openAddSubjectModal()" class="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold tap-feedback flex items-center space-x-1 shrink-0">
+              <span>+ Custom</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Syllabus Items Accordion -->
+        <div id="syllabus-list-container" class="space-y-4">
+          <!-- Populated via JavaScript -->
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: FREQUENT REVISION SCHEDULER -->
+      <!-- ============================================== -->
+      <section id="tab-content-revisions" class="hidden space-y-4">
+
+        <div class="bg-[#0f1629] rounded-3xl p-4 border border-slate-800 shadow-md space-y-2">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>🔁 Spaced Repetition Queue</span>
+            </h2>
+            <button onclick="openSettingsModal()" class="text-[11px] text-indigo-400 font-semibold hover:underline">
+              Intervals: 3d, 7d, 14d, 21d, 45d ⚙️
+            </button>
+          </div>
+          <p class="text-xs text-slate-400">
+            Reinforce high-yield Sanskrit slokas and formulations scientifically before memory decay sets in.
+          </p>
+
+          <div class="flex items-center space-x-2 pt-1 text-xs">
+            <div class="flex-1 p-2 bg-rose-950/40 rounded-xl border border-rose-900/60 text-center">
+              <div id="rev-overdue-count" class="text-lg font-black text-rose-400">2</div>
+              <div class="text-[10px] text-rose-300 font-bold uppercase">Overdue</div>
+            </div>
+            <div class="flex-1 p-2 bg-amber-950/40 rounded-xl border border-amber-900/60 text-center">
+              <div id="rev-due-count" class="text-lg font-black text-amber-400">2</div>
+              <div class="text-[10px] text-amber-300 font-bold uppercase">Due Today</div>
+            </div>
+            <div class="flex-1 p-2 bg-[#161f36] rounded-xl border border-slate-700 text-center">
+              <div id="rev-upcoming-count" class="text-lg font-black text-slate-200">3</div>
+              <div class="text-[10px] text-slate-400 font-bold uppercase">Upcoming</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overdue Revisions + Rebalance Button -->
+        <div id="rev-overdue-card" class="space-y-3">
+          <div class="flex items-center justify-between bg-rose-950/50 p-3 rounded-2xl border border-rose-900/80">
+            <div class="flex items-center space-x-2">
+              <span class="text-rose-400 text-sm">⚠️</span>
+              <span class="text-xs font-bold text-rose-200">Overdue Backlog Detected</span>
+            </div>
+            <button onclick="rebalanceOverdueRevisions()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-sm tap-feedback flex items-center space-x-1">
+              <span>⚖️ Rebalance Overdue</span>
+            </button>
+          </div>
+
+          <div id="rev-overdue-list" class="space-y-3">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Due Today Revisions -->
+        <div class="space-y-3">
+          <h3 class="text-xs font-extrabold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>Due Today</span>
+          </h3>
+          <div id="rev-due-list" class="space-y-3">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Upcoming Revisions -->
+        <div class="space-y-3">
+          <h3 class="text-xs font-extrabold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Upcoming Scheduled Revisions</span>
+          </h3>
+          <div id="rev-upcoming-list" class="space-y-3">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 4: FOCUS STUDY TIMER & DND MODE -->
+      <!-- ============================================== -->
+      <section id="tab-content-focus" class="hidden space-y-4">
+
+        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-4">
+          <div>
+            <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>🧘 Dharana Focus Timer & DND Mode</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Immerse in deep, distraction-free Samhita contemplation with acoustic singing bowl feedback.
+            </p>
+          </div>
+
+          <!-- Presets -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">Select Duration Preset:</label>
+            <div class="grid grid-cols-4 gap-2">
+              <button id="preset-25" onclick="selectFocusPreset(25)" class="py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white tap-feedback transition">
+                25m <span class="block text-[9px] font-normal opacity-80">Pomodoro</span>
+              </button>
+              <button id="preset-50" onclick="selectFocusPreset(50)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition">
+                50m <span class="block text-[9px] font-normal opacity-80">Deep Dive</span>
+              </button>
+              <button id="preset-90" onclick="selectFocusPreset(90)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition">
+                90m <span class="block text-[9px] font-normal opacity-80">Shastra</span>
+              </button>
+              <div class="relative">
+                <input type="number" id="focus-custom-duration" min="1" max="240" placeholder="Custom" 
+                  class="w-full h-full text-center py-2 px-1 text-xs font-bold rounded-xl bg-[#141d33] text-white border border-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic Linking Dropdown -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Link to Syllabus Topic:</label>
+            <select id="focus-topic-select" class="w-full px-3 py-2.5 bg-[#070b19] border border-slate-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <!-- Populated via JavaScript -->
+            </select>
+          </div>
+
+          <!-- Custom Topic Input -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Or Type Custom Study Subject:</label>
+            <input type="text" id="focus-custom-topic" placeholder="e.g., Sushruta Shastra Slokas Memorization" 
+              class="w-full px-3 py-2 bg-[#070b19] border border-slate-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <!-- Meditation Chime Toggle -->
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+            <div class="flex items-center space-x-2">
+              <span class="text-base">🔔</span>
+              <span class="text-xs font-semibold text-slate-300">Meditation Bell Chime</span>
+            </div>
+            <input type="checkbox" checked onchange="FocusTimer.audioEnabled = this.checked" class="w-4 h-4 text-emerald-500 rounded bg-slate-900 border-slate-700">
+          </div>
+
+          <!-- Start Focus Session -->
+          <button onclick="startFocusSessionFromSetup()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/25 hover:shadow-emerald-600/35 flex items-center justify-center space-x-2 tap-feedback transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Start Focus & Enter DND Mode</span>
+          </button>
+        </div>
+
+        <!-- Manual Offline Logger Card -->
+        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>📖 Manual Offline Logger</span>
+            </h3>
+            <span class="text-[10px] text-slate-400">Physical Books / Lectures</span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Read physical Samhita texts or attended offline coaching? Log your hours directly into today's dashboard quota.
+          </p>
+          <button onclick="document.getElementById('modal-offline-log').classList.remove('hidden')" class="w-full py-2.5 bg-[#161f36] hover:bg-[#202c4c] rounded-xl text-xs font-bold text-slate-200 tap-feedback border border-slate-700">
+            + Log Offline Reading Hours
+          </button>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ============================================== -->
+    <!-- FIXED MOBILE BOTTOM NAVIGATION BAR -->
+    <!-- ============================================== -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-[#070b19]/95 backdrop-blur-lg border-t border-slate-800/90 bottom-nav-safe">
+      <div class="grid grid-cols-4 h-16">
+
+        <button id="nav-btn-dashboard" onclick="switchTab('dashboard')" class="flex flex-col items-center justify-center text-indigo-400 tap-feedback transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span class="text-[10px] font-bold mt-1">Dashboard</span>
+        </button>
+
+        <button id="nav-btn-syllabus" onclick="switchTab('syllabus')" class="flex flex-col items-center justify-center text-slate-500 tap-feedback transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span class="text-[10px] font-bold mt-1">Syllabus</span>
+        </button>
+
+        <button id="nav-btn-revisions" onclick="switchTab('revisions')" class="flex flex-col items-center justify-center text-slate-500 relative tap-feedback transition">
+          <div class="relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span id="nav-rev-badge" class="absolute -top-1 -right-2 px-1.5 py-0.2 bg-rose-500 text-white text-[9px] font-extrabold rounded-full">4</span>
+          </div>
+          <span class="text-[10px] font-bold mt-1">Revisions</span>
+        </button>
+
+        <button id="nav-btn-focus" onclick="switchTab('focus')" class="flex flex-col items-center justify-center text-slate-500 tap-feedback transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="text-[10px] font-bold mt-1">Focus</span>
+        </button>
+
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- FULL-SCREEN DARK DND MODE OVERLAY -->
+  <!-- ============================================== -->
+  <div id="dnd-overlay" class="fixed inset-0 z-50 bg-[#070b19] text-white flex flex-col justify-between p-6 hidden">
+    <div id="dnd-timer-view" class="h-full flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2 text-emerald-400">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-xs font-bold uppercase tracking-wider">🔕 Dharana DND Mode Active</span>
+        </div>
+        <button onclick="FocusTimer.endEarly()" class="p-2 text-slate-400 hover:text-white rounded-xl bg-white/5 border border-white/10 tap-feedback">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="text-center py-2 px-4 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl mx-auto max-w-xs">
+        <p class="text-xs text-emerald-300 font-medium">Turn on Phone DND / Flight mode. Rest your Mind in the Shastras.</p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center my-auto">
+        <div class="relative w-72 h-72 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full dnd-active-ring opacity-60"></div>
+          <svg class="w-72 h-72 transform -rotate-90" viewBox="0 0 240 240">
+            <circle cx="120" cy="120" r="105" stroke="#161f36" stroke-width="12" fill="transparent"/>
+            <circle id="dnd-progress-circle" cx="120" cy="120" r="105" stroke="url(#dndGrad)" stroke-width="12" stroke-linecap="round" fill="transparent" class="progress-ring-circle" style="stroke-dasharray: 659.73; stroke-dashoffset: 0;"/>
+            <defs>
+              <linearGradient id="dndGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#34d399"/>
+                <stop offset="50%" stop-color="#10b981"/>
+                <stop offset="100%" stop-color="#6366f1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute text-center">
+            <span id="dnd-timer-digits" class="text-5xl font-black font-sans tracking-tight text-white">25:00</span>
+            <div class="text-[11px] text-slate-400 uppercase tracking-widest mt-1 font-bold">Unwavering Focus</div>
+          </div>
+        </div>
+
+        <div class="text-center mt-6 max-w-xs">
+          <div id="dnd-topic-cat" class="text-xs text-indigo-400 font-bold uppercase tracking-wider">Major Samhitas (Brihattrayi)</div>
+          <h3 id="dnd-topic-name" class="text-base font-bold text-white mt-1">Charaka Samhita - Sutrasthana</h3>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center space-x-3">
+        <button id="dnd-pause-btn" onclick="FocusTimer.isRunning ? FocusTimer.pause() : FocusTimer.resume()" 
+          class="flex-1 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-sm border border-white/15 tap-feedback">
+          Pause
+        </button>
+        <button onclick="FocusTimer.addTime(5)" class="px-4 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-sm border border-white/15 tap-feedback">
+          +5m
+        </button>
+        <button onclick="FocusTimer.completeSession()" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-extrabold text-sm shadow-xl shadow-emerald-600/30 tap-feedback">
+          Complete
+        </button>
+      </div>
+    </div>
+
+    <!-- Session Completion View -->
+    <div id="dnd-congrats-view" class="h-full flex flex-col justify-center items-center text-center p-6 space-y-5 hidden">
+      <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center text-4xl mb-2">
+        🏆
+      </div>
+      <h2 class="text-2xl font-black text-white">Shastra Session Complete!</h2>
+      <p class="text-sm text-slate-300">
+        You logged <strong id="dnd-logged-minutes" class="text-emerald-400 font-bold">25 Minutes</strong> into today's focus hours.
+      </p>
+
+      <div class="space-y-2 w-full max-w-xs pt-4">
+        <button onclick="FocusTimer.closeDNDOverlay(); openLogTopicModal();" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm tap-feedback">
+          Mark Topic Completed & Queue Revision
+        </button>
+        <button onclick="FocusTimer.closeDNDOverlay()" class="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl text-xs tap-feedback">
+          Return to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: STHANA PICKER (QUICK JUMP & STATUS) -->
+  <!-- ============================================== -->
+  <div id="modal-sthana-picker" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
+        <div>
+          <h3 class="text-base font-extrabold text-white flex items-center gap-1.5">
+            <span>📖 Classical Sthana Picker</span>
+          </h3>
+          <p class="text-[11px] text-slate-400">Jump directly to Sthanas or audit completed Adhyayas</p>
+        </div>
+        <button onclick="closeModal('modal-sthana-picker')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div id="sthana-picker-cards" class="overflow-y-auto space-y-3 pr-1 flex-1">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: USER PROFILE & SWITCH ACCOUNT -->
+  <!-- ============================================== -->
+  <div id="modal-profile" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Student Profile & Accounts</h3>
+        <button onclick="closeModal('modal-profile')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <!-- Active User Card -->
+      <div class="p-4 bg-[#141d33] rounded-2xl border border-slate-800 flex items-center space-x-3">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-700 flex items-center justify-center text-2xl shrink-0">
+          🌿
+        </div>
+        <div class="truncate flex-1">
+          <div id="prof-user-name" class="text-sm font-extrabold text-white truncate">Dr. Ananya Sharma</div>
+          <div id="prof-user-email" class="text-xs text-indigo-400 truncate">ananya.bams@ayush.in</div>
+          <div id="prof-user-role" class="text-[10px] text-slate-400 mt-0.5">AIAPGET Aspirant · Target 2027</div>
+        </div>
+      </div>
+
+      <!-- Switch Account List -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-300">
+          <span>Saved Profiles on this Device:</span>
+          <button onclick="openOnboardingModal()" class="text-indigo-400 font-bold hover:underline">+ Add New</button>
+        </div>
+        <div id="prof-accounts-list" class="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+          <!-- Populated via JavaScript -->
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeModal('modal-profile')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Close</button>
+        <button onclick="AppState.logoutUser()" class="py-2.5 px-4 bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-900 rounded-xl text-xs font-bold tap-feedback">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: LOGIN / ONBOARDING SCREEN -->
+  <!-- ============================================== -->
+  <div id="modal-onboarding" class="fixed inset-0 z-50 bg-[#070b19]/95 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-5">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 to-emerald-600 p-1 flex items-center justify-center shadow-lg">
+          <img src="icon.svg" alt="Kalasha" class="w-full h-full object-contain">
+        </div>
+        <h2 class="text-lg font-black text-white">Welcome to AIAPGET StudyBuddy</h2>
+        <p class="text-xs text-slate-400">Personalized revision, dynamic syllabus audit & focus tracking for BAMS doctors.</p>
+      </div>
+
+      <!-- Quick 1-Tap Demo Login Button -->
+      <button onclick="AppState.quickDemoLogin(true)" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-extrabold text-xs shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center space-x-2 tap-feedback">
+        <span>⚡ Quick Demo Login (Dr. Ananya Sharma)</span>
+      </button>
+
+      <div class="relative flex items-center justify-center">
+        <div class="border-t border-slate-800 w-full"></div>
+        <span class="bg-[#0f1629] px-3 text-[10px] text-slate-500 uppercase font-bold">Or Create / Sign In</span>
+      </div>
+
+      <!-- Custom Registration Form -->
+      <form onsubmit="handleOnboardingSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Your Name & Title:</label>
+          <input type="text" id="onboard-name" required placeholder="e.g. Dr. Rohan Mehta" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Email Address:</label>
+          <input type="email" id="onboard-email" required placeholder="e.g. rohan@ayush.in" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Target AIAPGET Exam Year:</label>
+          <select id="onboard-year" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium">
+            <option value="2027" selected>AIAPGET 2027 (May 30, 2027)</option>
+            <option value="2028">AIAPGET 2028</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-xs tap-feedback transition">
+          Start My Prep Journey
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: EDIT EXAM DATE & TARGETS -->
+  <!-- ============================================== -->
+  <div id="modal-edit-targets" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Edit Exam Date & Targets</h3>
+        <button onclick="closeModal('modal-edit-targets')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Target Exam Date (NTA AIAPGET):</label>
+          <input type="date" id="input-exam-date" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Pre-Exam Revision Buffer (Days):</label>
+          <input type="number" id="input-buffer-days" min="0" max="180" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+          <p class="text-[10px] text-slate-400 mt-1">Days reserved for full mock exams & final consolidation.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Daily Target (hrs):</label>
+            <input type="number" step="0.5" id="input-target-hours" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Daily MCQ Quota:</label>
+            <input type="number" id="input-target-mcq" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeModal('modal-edit-targets')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveEditTargetsModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Targets</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: LOG TODAY'S STUDIED TOPIC -->
+  <!-- ============================================== -->
+  <div id="modal-log-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Log Studied Topic</h3>
+        <button onclick="closeModal('modal-log-topic')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <p class="text-xs text-slate-400">
+        Marks topic completed in syllabus and automatically schedules it into Day 3 Spaced Repetition.
+      </p>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Select from Pre-Loaded Syllabus:</label>
+          <select id="log-studied-topic-select" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+            <!-- Populated via JavaScript -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Or Type Custom Topic:</label>
+          <input type="text" id="log-custom-topic-input" placeholder="e.g. Ashtanga Hridaya - Matrashitiya Slokas" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeModal('modal-log-topic')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveLogTopicModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Log & Queue Revision</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: MANUAL OFFLINE STUDY LOGGER -->
+  <!-- ============================================== -->
+  <div id="modal-offline-log" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Log Offline Study Hours</h3>
+        <button onclick="closeModal('modal-offline-log')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Study Duration (Hours):</label>
+          <input type="number" step="0.25" min="0.25" id="offline-hours-input" placeholder="e.g. 1.5" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Subject / Physical Samhita Read:</label>
+          <input type="text" id="offline-topic-input" placeholder="e.g. Charaka Samhita Chikitsa Ch. 3" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeModal('modal-offline-log')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveManualStudyHours()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Offline Hours</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADD CUSTOM TOPIC TO SUBJECT -->
+  <!-- ============================================== -->
+  <div id="modal-add-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Add Topic to <span id="add-topic-subject-name" class="text-indigo-400">Subject</span></h3>
+        <button onclick="closeModal('modal-add-topic')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Topic / Sthana Title:</label>
+          <input type="text" id="new-topic-name" placeholder="e.g. Siddhisthana Vyapad Adhyayas" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Hindi / Sanskrit Title (Optional):</label>
+          <input type="text" id="new-topic-sanskrit" placeholder="e.g. सिद्धिस्थानम्" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Exam Priority:</label>
+          <select id="new-topic-priority" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+            <option value="High-Yield">High-Yield (Red Badge)</option>
+            <option value="Core">Core (Indigo Badge)</option>
+            <option value="Scoring">Scoring (Emerald Badge)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Initial Subtopics (comma-separated):</label>
+          <input type="text" id="new-topic-subtopics" placeholder="Adhyaya 1, Adhyaya 2, Adhyaya 3" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeModal('modal-add-topic')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveAddTopicModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Topic</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADD CUSTOM SUBJECT / SAMHITA -->
+  <!-- ============================================== -->
+  <div id="modal-add-subject" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Add Custom Subject / Samhita</h3>
+        <button onclick="closeModal('modal-add-subject')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Category Section:</label>
+          <select id="new-subject-cat" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+            <option value="brihattrayi">Major Samhitas (Brihattrayi)</option>
+            <option value="laghutrayi">Minor Samhitas (Laghutrayi & Others)</option>
+            <option value="subjects" selected>15 BAMS Core Subjects</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Subject / Samhita Name:</label>
+          <input type="text" id="new-subject-name" placeholder="e.g. Chakradatta Chikitsa" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Hindi / Sanskrit Title (Optional):</label>
+          <input type="text" id="new-subject-sanskrit" placeholder="e.g. चक्रदत्त चिकित्सा" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Priority:</label>
+          <select id="new-subject-priority" class="w-full p-2.5 rounded-xl border border-slate-700 bg-[#070b19] text-white font-medium">
+            <option value="High-Yield">High-Yield</option>
+            <option value="Core" selected>Core</option>
+            <option value="Scoring">Scoring</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeModal('modal-add-subject')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveAddSubjectModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Create Subject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: SETTINGS & DATA MANAGEMENT -->
+  <!-- ============================================== -->
+  <div id="modal-settings" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+        <h3 class="text-sm font-bold text-white">Settings & Cloud Management</h3>
+        <button onclick="closeModal('modal-settings')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- Spaced Repetition Intervals -->
+        <div class="p-3 bg-[#131d33] rounded-2xl border border-slate-800">
+          <label class="block font-bold text-slate-200 mb-1">Spaced Repetition Intervals (Days):</label>
+          <input type="text" id="setting-intervals-input" placeholder="3, 7, 14, 21, 45" class="w-full p-2 rounded-xl border border-slate-700 bg-[#070b19] text-white font-semibold">
+          <p class="text-[10px] text-slate-400 mt-1">Default: 3, 7, 14, 21, 45 days after study.</p>
+        </div>
+
+        <!-- Supabase Cloud Sync -->
+        <div class="p-3 bg-[#131d33] rounded-2xl border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-200">Supabase Cloud Sync</span>
+            <input type="checkbox" id="supabase-enabled-toggle" class="w-4 h-4 text-indigo-500 rounded bg-slate-900 border-slate-700">
+          </div>
+          <p class="text-[10px] text-slate-400">Optional: Enter your Supabase credentials to sync progress across phones/laptops.</p>
+          <input type="text" id="supabase-url-input" placeholder="https://your-project.supabase.co" class="w-full p-2 rounded-xl border border-slate-700 bg-[#070b19] text-white text-[11px]">
+          <input type="password" id="supabase-key-input" placeholder="Anon Public Key" class="w-full p-2 rounded-xl border border-slate-700 bg-[#070b19] text-white text-[11px]">
+        </div>
+
+        <!-- Data Backup & Portability -->
+        <div class="space-y-2">
+          <label class="block font-bold text-slate-200">Data Portability (Offline JSON):</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="exportDataBackup()" class="py-2 px-3 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 rounded-xl font-bold border border-indigo-800 tap-feedback">
+              📥 Export Backup
+            </button>
+            <label class="py-2 px-3 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 rounded-xl font-bold border border-emerald-800 text-center cursor-pointer tap-feedback">
+              📤 Import Backup
+              <input type="file" accept=".json" onchange="importDataBackup(event)" class="hidden">
+            </label>
+          </div>
+        </div>
+
+        <!-- Reset All Data -->
+        <div class="pt-2 border-t border-slate-800 space-y-2">
+          <label class="block font-bold text-slate-200">Reset Options:</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="if(confirm('Restore pre-seeded sample data for this user?')){ AppState.resetAll(true); closeModal('modal-settings'); }" class="py-2 px-2 bg-[#161f36] hover:bg-[#202c4c] text-slate-300 rounded-xl font-semibold tap-feedback">
+              🔄 Sample Data
+            </button>
+            <button onclick="if(confirm('Clear ALL data for this account? This cannot be undone.')){ AppState.resetAll(false); closeModal('modal-settings'); }" class="py-2 px-2 bg-rose-950/50 hover:bg-rose-900/50 text-rose-300 border border-rose-900 rounded-xl font-semibold tap-feedback">
+              🗑️ Clear Account
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeModal('modal-settings')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
+        <button onclick="saveSettingsModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-4 left-4 right-4 z-50 max-w-sm mx-auto pointer-events-none flex flex-col items-center space-y-2"></div>
+
+  <!-- Scripts -->
+  <script src="supabaseClient.js"></script>
+  <script src="syllabus-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

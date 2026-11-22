@@ -1,0 +1,124 @@
+/* AIAPGET StudyBuddy Custom Styles - Dark Midnight Academic Theme */
+
+:root {
+  --bg-midnight: #070b19;
+  --card-midnight: #0f1629;
+  --card-elevated: #161f36;
+  --border-midnight: rgba(30, 41, 59, 0.8);
+  --color-primary: #6366f1;
+  --color-emerald: #10b981;
+  --color-rose: #f43f5e;
+  --color-amber: #f59e0b;
+}
+
+body {
+  background-color: var(--bg-midnight);
+  color: #f1f5f9;
+}
+
+/* Safe area padding for mobile bottom bar */
+.pb-safe {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 16px));
+}
+
+.bottom-nav-safe {
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+/* Hide scrollbars for horizontal pill bars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* SVG Circular Progress Smooth Animation */
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Pulsing aura for focus timer and DND mode */
+@keyframes dndPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 26px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.dnd-active-ring {
+  animation: dndPulse 2.8s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+/* Subtle Shimmer effect for high-yield badges */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.badge-shimmer {
+  background: linear-gradient(90deg, rgba(244,63,94,0.15) 25%, rgba(244,63,94,0.3) 50%, rgba(244,63,94,0.15) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite;
+}
+
+/* Modal and Toast Animations */
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-exit {
+  animation: toastSlideOut 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Touch active micro-shrink for high responsiveness */
+.tap-feedback:active {
+  transform: scale(0.97);
+  transition: transform 0.08s ease;
+}
+
+/* Custom Scrollbar for desktop preview */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.6);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.9);
+}
