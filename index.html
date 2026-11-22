@@ -27,6 +27,12 @@
     tailwind.config = {
       darkMode: 'class',
       theme: {
+        screens: {
+          'xs': '380px',
+          'sm': '640px',
+          'md': '768px',
+          'lg': '1024px',
+        },
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
@@ -47,48 +53,50 @@
 
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#070b19] text-slate-100 font-sans min-h-full pb-safe antialiased select-none selection:bg-indigo-600 selection:text-white">
+<body class="bg-[#070b19] text-slate-100 font-sans min-h-full antialiased select-none selection:bg-indigo-600 selection:text-white overflow-x-hidden">
 
   <!-- Mobile Shell Wrapper (Centered on desktop, fluid on phone) -->
-  <div class="max-w-md mx-auto min-h-screen bg-[#070b19] flex flex-col relative shadow-2xl border-x border-slate-800/80">
+  <div class="w-full max-w-md mx-auto min-h-screen bg-[#070b19] flex flex-col relative shadow-2xl border-x border-slate-800/80 overflow-x-hidden">
 
-    <!-- Top Sticky Header -->
-    <header class="sticky top-0 z-30 bg-[#070b19]/90 backdrop-blur-md border-b border-slate-800/80 px-4 py-3 flex items-center justify-between">
+    <!-- Top Sticky Header (Optimized for 320px–430px mobile viewports) -->
+    <header class="sticky top-0 z-30 bg-[#070b19]/95 backdrop-blur-md border-b border-slate-800/80 px-3.5 py-2.5 flex items-center justify-between">
       <!-- Logo & App Brand -->
-      <div class="flex items-center space-x-2.5">
-        <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm flex items-center justify-center p-0.5 bg-gradient-to-br from-indigo-500 to-emerald-600 shrink-0">
+      <div class="flex items-center space-x-2 shrink-0">
+        <div class="w-8 h-8 rounded-xl overflow-hidden shadow-sm flex items-center justify-center p-0.5 bg-gradient-to-br from-indigo-500 to-emerald-600 shrink-0">
           <img src="icon.svg" alt="Kalasha Icon" class="w-full h-full object-contain">
         </div>
         <div>
-          <h1 class="text-sm font-extrabold text-white leading-tight flex items-center gap-1.5">
-            AIAPGET <span class="text-[10px] px-1.5 py-0.2 rounded font-bold bg-indigo-950 border border-indigo-800 text-indigo-300">StudyBuddy</span>
+          <h1 class="text-xs xs:text-sm font-extrabold text-white leading-tight flex items-center gap-1">
+            <span>AIAPGET</span>
+            <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-indigo-950 border border-indigo-800 text-indigo-300">Prep</span>
           </h1>
-          <p class="text-[10px] text-slate-400 font-medium">BAMS PG Entrance Companion</p>
+          <p class="text-[9px] text-slate-400 font-medium leading-none">BAMS PG Entrance</p>
         </div>
       </div>
 
       <!-- Quick Action Controls in Header -->
-      <div class="flex items-center space-x-1.5">
+      <div class="flex items-center space-x-1.5 shrink-0">
         <!-- Quick Sthana Picker Button -->
-        <button onclick="openSthanaPicker()" title="Sthana Picker" class="px-2.5 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-indigo-300 flex items-center space-x-1 tap-feedback transition">
-          <span>📖 Sthanas</span>
+        <button onclick="openSthanaPicker()" title="Classical Sthanas" class="px-2 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-indigo-300 flex items-center space-x-1 tap-feedback transition">
+          <span>📖</span>
+          <span class="hidden xs:inline">Sthanas</span>
         </button>
 
         <!-- User Profile Pill -->
-        <button onclick="openProfileModal()" title="Student Profile" class="flex items-center space-x-1.5 pl-2 pr-2.5 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-slate-200 tap-feedback transition">
-          <span id="header-user-avatar" class="text-sm">🌿</span>
-          <span id="header-user-name" class="truncate max-w-[80px]">Dr. Ananya</span>
+        <button onclick="openProfileModal()" title="Student Profile" class="flex items-center space-x-1 px-2 py-1.5 rounded-xl bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 text-xs font-bold text-slate-200 tap-feedback transition">
+          <span id="header-user-avatar" class="text-xs">🌿</span>
+          <span id="header-user-name" class="truncate max-w-[65px] hidden xs:inline">Dr. Ananya</span>
         </button>
 
         <!-- Settings Cog -->
-        <button onclick="openSettingsModal()" aria-label="Settings" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#0f1629] border border-transparent hover:border-slate-800 tap-feedback transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <button onclick="openSettingsModal()" aria-label="Settings" class="w-8 h-8 rounded-xl text-slate-400 hover:text-white bg-[#0f1629] hover:bg-[#161f36] border border-slate-700/80 flex items-center justify-center tap-feedback transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </button>
       </div>
     </header>
 
-    <!-- MAIN BODY TABS -->
-    <main class="flex-1 p-4 space-y-5">
+    <!-- MAIN BODY TABS (Equipped with main-bottom-clearance for full visibility above fixed nav) -->
+    <main class="flex-1 p-3.5 sm:p-4 main-bottom-clearance space-y-4">
 
       <!-- ============================================== -->
       <!-- TAB 1: DASHBOARD -->
@@ -96,21 +104,21 @@
       <section id="tab-content-dashboard" class="space-y-4">
 
         <!-- Dynamic Exam Countdown & Pace Engine Card -->
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-[#0f1629] to-[#070b19] text-white p-5 shadow-xl border border-indigo-900/50">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-[#0f1629] to-[#070b19] text-white p-4 sm:p-5 shadow-xl border border-indigo-900/50">
           <div class="absolute -right-8 -top-8 w-44 h-44 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute -left-8 -bottom-8 w-44 h-44 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
           <div class="flex items-start justify-between relative z-10">
             <div>
-              <div class="flex items-center space-x-1.5 text-xs text-indigo-300 font-semibold tracking-wide uppercase">
+              <div class="flex items-center space-x-1.5 text-[11px] text-indigo-300 font-semibold tracking-wide uppercase">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span>AIAPGET Target Countdown</span>
               </div>
               <div class="mt-1 flex items-baseline space-x-2">
-                <span id="dash-days-remaining" class="text-4xl font-extrabold tracking-tight text-white font-sans">189</span>
+                <span id="dash-days-remaining" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">189</span>
                 <span class="text-xs font-bold text-slate-300 uppercase">Days Left</span>
               </div>
-              <div class="text-xs text-slate-300 mt-1 flex items-center space-x-2">
+              <div class="text-[11px] text-slate-300 mt-1 flex items-center space-x-1.5 flex-wrap">
                 <span>Exam: <strong id="dash-exam-date" class="text-white">May 30, 2027</strong></span>
                 <span>·</span>
                 <span id="dash-buffer-days" class="text-indigo-300 font-semibold">30d Buffer</span>
@@ -118,49 +126,51 @@
             </div>
 
             <!-- Edit Exam Date Trigger -->
-            <button onclick="openEditTargetsModal()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl text-xs font-bold text-white border border-white/15 flex items-center space-x-1 tap-feedback">
+            <button onclick="openEditTargetsModal()" class="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl text-xs font-bold text-white border border-white/15 flex items-center space-x-1 tap-feedback shrink-0">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               <span>Edit</span>
             </button>
           </div>
 
           <!-- Required Daily Pace Bar -->
-          <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between relative z-10">
-            <div class="flex items-center space-x-2">
-              <div class="p-1.5 bg-emerald-500/20 rounded-xl text-emerald-400">
+          <div class="mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2 relative z-10">
+            <div class="flex items-center space-x-2 min-w-0">
+              <div class="p-1.5 bg-emerald-500/20 rounded-xl text-emerald-400 shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <div>
-                <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Required Daily Pace</div>
-                <div class="text-sm font-extrabold text-emerald-400 flex items-center space-x-1">
+              <div class="min-w-0">
+                <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Required Pace</div>
+                <div class="text-xs sm:text-sm font-extrabold text-emerald-400 flex items-center space-x-1 truncate">
                   <span id="dash-daily-pace">1.1 Topics / Day</span>
-                  <span id="dash-subtopic-pace" class="text-[11px] font-normal text-slate-300">(3.4 subtopics/d)</span>
+                  <span id="dash-subtopic-pace" class="text-[10px] font-normal text-slate-300 hidden xs:inline">(3.4 subtopics/d)</span>
                 </div>
               </div>
             </div>
-            <div class="text-right">
-              <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Effective Study Time</div>
+            <div class="text-right shrink-0">
+              <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Effective Time</div>
               <div id="dash-effective-days" class="text-xs font-bold text-slate-200">159 Study Days</div>
             </div>
           </div>
         </div>
 
         <!-- Readiness Score Card (0–100%) -->
-        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md">
-          <div class="flex items-center justify-between mb-3">
-            <div>
-              <h2 class="text-sm font-bold text-white">Exam Readiness Score</h2>
-              <p class="text-[11px] text-slate-400">Blended from syllabus, revisions & daily rhythm</p>
+        <div class="bg-[#0f1629] rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-md">
+          <div class="space-y-1 mb-3">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <span>📈 Readiness Score</span>
+              </h2>
+              <span id="dash-readiness-level" class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full text-indigo-400 bg-indigo-950/70 border border-indigo-800 shrink-0">
+                Steadily Progressing
+              </span>
             </div>
-            <span id="dash-readiness-level" class="text-xs font-bold px-2.5 py-1 rounded-full text-indigo-400 bg-indigo-950/70 border border-indigo-800">
-              Steadily Progressing 📈
-            </span>
+            <p class="text-[11px] text-slate-400">Blended from syllabus, revisions & daily rhythm</p>
           </div>
 
-          <div class="flex items-center justify-around py-2">
+          <div class="flex items-center justify-between py-1">
             <!-- Animated SVG Ring -->
-            <div class="relative w-32 h-32 flex items-center justify-center shrink-0">
-              <svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center shrink-0">
+              <svg class="w-28 h-28 sm:w-32 sm:h-32 transform -rotate-90" viewBox="0 0 120 120">
                 <circle cx="60" cy="60" r="54" stroke="#1e293b" stroke-width="9" fill="transparent"/>
                 <circle id="readiness-ring-circle" cx="60" cy="60" r="54" stroke="url(#ringGrad)" stroke-width="9" stroke-linecap="round" fill="transparent" class="progress-ring-circle" style="stroke-dasharray: 339.29; stroke-dashoffset: 135;"/>
                 <defs>
@@ -172,39 +182,39 @@
               </svg>
               <div class="absolute text-center">
                 <span id="dash-readiness-score" class="text-2xl font-black text-white font-sans">64%</span>
-                <span class="block text-[9px] uppercase font-bold tracking-wider text-slate-400">Readiness</span>
+                <span class="block text-[8px] sm:text-[9px] uppercase font-bold tracking-wider text-slate-400">Readiness</span>
               </div>
             </div>
 
             <!-- Sub-breakdown metrics -->
-            <div class="space-y-2.5 text-xs flex-1 pl-4">
+            <div class="space-y-2 text-xs flex-1 pl-3 sm:pl-4">
               <div>
-                <div class="flex justify-between text-slate-300 font-medium mb-1">
+                <div class="flex justify-between text-slate-300 font-medium mb-1 text-[11px]">
                   <span>Syllabus Covered</span>
                   <span id="dash-syllabus-pct" class="font-bold text-white">52%</span>
                 </div>
                 <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-indigo-500 h-1.5 rounded-full" style="width: 52%"></div>
+                  <div id="dash-syllabus-bar" class="bg-indigo-500 h-1.5 rounded-full" style="width: 52%"></div>
                 </div>
               </div>
 
               <div>
-                <div class="flex justify-between text-slate-300 font-medium mb-1">
+                <div class="flex justify-between text-slate-300 font-medium mb-1 text-[11px]">
                   <span>Revision Rhythm</span>
                   <span id="dash-revision-pct" class="font-bold text-white">78%</span>
                 </div>
                 <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 78%"></div>
+                  <div id="dash-revision-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 78%"></div>
                 </div>
               </div>
 
               <div>
-                <div class="flex justify-between text-slate-300 font-medium mb-1">
-                  <span>Daily Goal Adherence</span>
+                <div class="flex justify-between text-slate-300 font-medium mb-1 text-[11px]">
+                  <span>Goal Consistency</span>
                   <span id="dash-rhythm-pct" class="font-bold text-white">68%</span>
                 </div>
                 <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-amber-500 h-1.5 rounded-full" style="width: 68%"></div>
+                  <div id="dash-rhythm-bar" class="bg-amber-500 h-1.5 rounded-full" style="width: 68%"></div>
                 </div>
               </div>
             </div>
@@ -212,7 +222,7 @@
         </div>
 
         <!-- Daily Targets Card with Quick Increment Buttons -->
-        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-4">
+        <div class="bg-[#0f1629] rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-md space-y-3.5">
           <div class="flex items-center justify-between">
             <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
               <span>🎯 Today's Quota</span>
@@ -243,30 +253,32 @@
               <div id="dash-mcq-bar" class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2.5 rounded-full transition-all duration-500" style="width: 40%"></div>
             </div>
 
-            <!-- Quick MCQ Increment Buttons -->
-            <div class="flex items-center space-x-2">
-              <span class="text-[11px] text-slate-400 font-medium">Quick add:</span>
-              <button onclick="incrementMcq(10)" class="px-3 py-1.5 bg-[#161f36] hover:bg-[#202c4c] text-slate-200 text-xs font-bold rounded-xl tap-feedback border border-slate-700">
-                +10 MCQs
-              </button>
-              <button onclick="incrementMcq(25)" class="px-3 py-1.5 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 text-xs font-bold rounded-xl tap-feedback border border-emerald-800">
-                +25 MCQs
-              </button>
-              <button onclick="incrementMcq(50)" class="px-3 py-1.5 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 text-xs font-bold rounded-xl tap-feedback border border-indigo-800">
-                +50 MCQs
-              </button>
+            <!-- Quick MCQ Increment Buttons (Full-width 3-col grid) -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] text-slate-400 font-medium">Quick add solved MCQs:</div>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="incrementMcq(10)" class="py-2.5 px-1 bg-[#161f36] hover:bg-[#202c4c] text-slate-200 text-xs font-bold rounded-xl tap-feedback border border-slate-700 text-center">
+                  +10 MCQs
+                </button>
+                <button onclick="incrementMcq(25)" class="py-2.5 px-1 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 text-xs font-bold rounded-xl tap-feedback border border-emerald-800 text-center">
+                  +25 MCQs
+                </button>
+                <button onclick="incrementMcq(50)" class="py-2.5 px-1 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 text-xs font-bold rounded-xl tap-feedback border border-indigo-800 text-center">
+                  +50 MCQs
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Quick Action Primary Button: Log Today's Studied Topic -->
-        <button onclick="openLogTopicModal()" class="w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/40 flex items-center justify-center space-x-2.5 tap-feedback transition">
+        <button onclick="openLogTopicModal()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/40 flex items-center justify-center space-x-2.5 tap-feedback transition">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
           <span>Log Today's Studied Topic</span>
         </button>
 
         <!-- Due Revisions Snapshot Card -->
-        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-3">
+        <div class="bg-[#0f1629] rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-md space-y-3">
           <div class="flex items-center justify-between">
             <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
               <span>🔁 Revisions Due Snapshot</span>
@@ -300,16 +312,16 @@
 
           <div class="grid grid-cols-3 gap-2 text-center pt-1">
             <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
-              <div id="syl-pending-topics" class="text-xl font-black text-white">35</div>
-              <div class="text-[10px] text-slate-400 uppercase font-semibold">Pending Topics</div>
+              <div id="syl-pending-topics" class="text-lg sm:text-xl font-black text-white">35</div>
+              <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-semibold">Pending Topics</div>
             </div>
             <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
-              <div id="syl-pending-subtopics" class="text-xl font-black text-indigo-400">112</div>
-              <div class="text-[10px] text-slate-400 uppercase font-semibold">Subtopics Left</div>
+              <div id="syl-pending-subtopics" class="text-lg sm:text-xl font-black text-indigo-400">112</div>
+              <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-semibold">Subtopics Left</div>
             </div>
             <div class="bg-[#070b19]/60 p-2.5 rounded-2xl border border-slate-800">
-              <div id="syl-overdue-revs" class="text-xl font-black text-rose-400">2</div>
-              <div class="text-[10px] text-slate-400 uppercase font-semibold">Overdue Revs</div>
+              <div id="syl-overdue-revs" class="text-lg sm:text-xl font-black text-rose-400">2</div>
+              <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-semibold">Overdue Revs</div>
             </div>
           </div>
 
@@ -342,19 +354,19 @@
         </div>
 
         <!-- 3 Filterable Categories Bar -->
-        <div class="flex space-x-1 p-1 bg-[#0f1629] rounded-2xl text-xs font-bold text-slate-400 border border-slate-800">
-          <button onclick="syllabusCategoryFilter='brihattrayi'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='brihattrayi' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+        <div class="grid grid-cols-3 gap-1 p-1 bg-[#0f1629] rounded-2xl text-xs font-bold border border-slate-800">
+          <button id="syl-tab-brihattrayi" onclick="switchSyllabusCategory('brihattrayi')" class="py-2 px-1 rounded-xl text-center tap-feedback transition bg-[#1c2742] text-indigo-300 font-bold">
             Brihattrayi
           </button>
-          <button onclick="syllabusCategoryFilter='laghutrayi'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='laghutrayi' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+          <button id="syl-tab-laghutrayi" onclick="switchSyllabusCategory('laghutrayi')" class="py-2 px-1 rounded-xl text-center tap-feedback transition text-slate-400 font-medium hover:text-slate-200">
             Laghutrayi
           </button>
-          <button onclick="syllabusCategoryFilter='subjects'; renderAll();" class="flex-1 py-2 px-2 rounded-xl text-center tap-feedback transition ${syllabusCategoryFilter==='subjects' ? 'bg-[#1c2742] text-indigo-300' : ''}">
+          <button id="syl-tab-subjects" onclick="switchSyllabusCategory('subjects')" class="py-2 px-1 rounded-xl text-center tap-feedback transition text-slate-400 font-medium hover:text-slate-200">
             15 Subjects
           </button>
         </div>
 
-        <!-- Search & Filter Controls -->
+        <!-- Search & Filter Controls (Mobile-first wrapped grid) -->
         <div class="space-y-2">
           <div class="relative">
             <svg class="w-4 h-4 absolute left-3 top-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -363,24 +375,24 @@
               class="w-full pl-9 pr-4 py-2.5 bg-[#0f1629] border border-slate-800 rounded-2xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
           </div>
 
-          <div class="flex items-center justify-between space-x-2 text-xs">
+          <div class="grid grid-cols-5 gap-2 text-xs">
             <select onchange="syllabusPriorityFilter = this.value; renderSyllabus(calculatePaceAndStats());" 
-              class="px-2.5 py-1.5 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none">
+              class="col-span-2 px-2.5 py-2 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none truncate">
               <option value="all">All Priorities</option>
-              <option value="High-Yield">High-Yield Only</option>
-              <option value="Core">Core Only</option>
-              <option value="Scoring">Scoring Only</option>
+              <option value="High-Yield">High-Yield</option>
+              <option value="Core">Core</option>
+              <option value="Scoring">Scoring</option>
             </select>
 
             <select onchange="syllabusStatusFilter = this.value; renderSyllabus(calculatePaceAndStats());" 
-              class="px-2.5 py-1.5 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none">
+              class="col-span-2 px-2.5 py-2 bg-[#0f1629] border border-slate-800 rounded-xl text-slate-300 font-medium focus:outline-none truncate">
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
               <option value="completed">Completed</option>
             </select>
 
-            <button onclick="openAddSubjectModal()" class="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold tap-feedback flex items-center space-x-1 shrink-0">
-              <span>+ Custom</span>
+            <button onclick="openAddSubjectModal()" title="Add Custom Subject" class="col-span-1 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold tap-feedback flex items-center justify-center shrink-0">
+              <span>+ Add</span>
             </button>
           </div>
         </div>
@@ -431,10 +443,10 @@
           <div class="flex items-center justify-between bg-rose-950/50 p-3 rounded-2xl border border-rose-900/80">
             <div class="flex items-center space-x-2">
               <span class="text-rose-400 text-sm">⚠️</span>
-              <span class="text-xs font-bold text-rose-200">Overdue Backlog Detected</span>
+              <span class="text-xs font-bold text-rose-200">Overdue Backlog</span>
             </div>
-            <button onclick="rebalanceOverdueRevisions()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-sm tap-feedback flex items-center space-x-1">
-              <span>⚖️ Rebalance Overdue</span>
+            <button onclick="rebalanceOverdueRevisions()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-sm tap-feedback flex items-center space-x-1 shrink-0">
+              <span>⚖️ Rebalance</span>
             </button>
           </div>
 
@@ -472,7 +484,7 @@
       <!-- ============================================== -->
       <section id="tab-content-focus" class="hidden space-y-4">
 
-        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-4">
+        <div class="bg-[#0f1629] rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-md space-y-4">
           <div>
             <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
               <span>🧘 Dharana Focus Timer & DND Mode</span>
@@ -486,13 +498,13 @@
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-2">Select Duration Preset:</label>
             <div class="grid grid-cols-4 gap-2">
-              <button id="preset-25" onclick="selectFocusPreset(25)" class="py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white tap-feedback transition">
+              <button id="preset-25" onclick="selectFocusPreset(25)" class="py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white tap-feedback transition text-center">
                 25m <span class="block text-[9px] font-normal opacity-80">Pomodoro</span>
               </button>
-              <button id="preset-50" onclick="selectFocusPreset(50)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition">
-                50m <span class="block text-[9px] font-normal opacity-80">Deep Dive</span>
+              <button id="preset-50" onclick="selectFocusPreset(50)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition text-center">
+                50m <span class="block text-[9px] font-normal opacity-80">Deep</span>
               </button>
-              <button id="preset-90" onclick="selectFocusPreset(90)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition">
+              <button id="preset-90" onclick="selectFocusPreset(90)" class="py-2.5 rounded-xl text-xs font-bold bg-[#141d33] text-slate-300 tap-feedback transition text-center">
                 90m <span class="block text-[9px] font-normal opacity-80">Shastra</span>
               </button>
               <div class="relative">
@@ -523,18 +535,18 @@
               <span class="text-base">🔔</span>
               <span class="text-xs font-semibold text-slate-300">Meditation Bell Chime</span>
             </div>
-            <input type="checkbox" checked onchange="FocusTimer.audioEnabled = this.checked" class="w-4 h-4 text-emerald-500 rounded bg-slate-900 border-slate-700">
+            <input type="checkbox" checked onchange="FocusTimer.audioEnabled = this.checked" class="w-4 h-4 text-emerald-500 rounded bg-slate-900 border-slate-700 cursor-pointer">
           </div>
 
           <!-- Start Focus Session -->
-          <button onclick="startFocusSessionFromSetup()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/25 hover:shadow-emerald-600/35 flex items-center justify-center space-x-2 tap-feedback transition">
+          <button onclick="startFocusSessionFromSetup()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/25 hover:shadow-emerald-600/35 flex items-center justify-center space-x-2 tap-feedback transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <span>Start Focus & Enter DND Mode</span>
           </button>
         </div>
 
         <!-- Manual Offline Logger Card -->
-        <div class="bg-[#0f1629] rounded-3xl p-5 border border-slate-800 shadow-md space-y-3">
+        <div class="bg-[#0f1629] rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-md space-y-3">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
               <span>📖 Manual Offline Logger</span>
@@ -560,25 +572,25 @@
       <div class="grid grid-cols-4 h-16">
 
         <button id="nav-btn-dashboard" onclick="switchTab('dashboard')" class="flex flex-col items-center justify-center text-indigo-400 tap-feedback transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           <span class="text-[10px] font-bold mt-1">Dashboard</span>
         </button>
 
         <button id="nav-btn-syllabus" onclick="switchTab('syllabus')" class="flex flex-col items-center justify-center text-slate-500 tap-feedback transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           <span class="text-[10px] font-bold mt-1">Syllabus</span>
         </button>
 
         <button id="nav-btn-revisions" onclick="switchTab('revisions')" class="flex flex-col items-center justify-center text-slate-500 relative tap-feedback transition">
           <div class="relative">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
             <span id="nav-rev-badge" class="absolute -top-1 -right-2 px-1.5 py-0.2 bg-rose-500 text-white text-[9px] font-extrabold rounded-full">4</span>
           </div>
           <span class="text-[10px] font-bold mt-1">Revisions</span>
         </button>
 
         <button id="nav-btn-focus" onclick="switchTab('focus')" class="flex flex-col items-center justify-center text-slate-500 tap-feedback transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           <span class="text-[10px] font-bold mt-1">Focus</span>
         </button>
 
@@ -590,7 +602,7 @@
   <!-- ============================================== -->
   <!-- FULL-SCREEN DARK DND MODE OVERLAY -->
   <!-- ============================================== -->
-  <div id="dnd-overlay" class="fixed inset-0 z-50 bg-[#070b19] text-white flex flex-col justify-between p-6 hidden">
+  <div id="dnd-overlay" class="fixed inset-0 z-50 bg-[#070b19] text-white flex flex-col justify-between p-5 hidden">
     <div id="dnd-timer-view" class="h-full flex flex-col justify-between">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2 text-emerald-400">
@@ -607,9 +619,9 @@
       </div>
 
       <div class="flex flex-col items-center justify-center my-auto">
-        <div class="relative w-72 h-72 flex items-center justify-center">
+        <div class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center">
           <div class="absolute inset-0 rounded-full dnd-active-ring opacity-60"></div>
-          <svg class="w-72 h-72 transform -rotate-90" viewBox="0 0 240 240">
+          <svg class="w-64 h-64 sm:w-72 sm:h-72 transform -rotate-90" viewBox="0 0 240 240">
             <circle cx="120" cy="120" r="105" stroke="#161f36" stroke-width="12" fill="transparent"/>
             <circle id="dnd-progress-circle" cx="120" cy="120" r="105" stroke="url(#dndGrad)" stroke-width="12" stroke-linecap="round" fill="transparent" class="progress-ring-circle" style="stroke-dasharray: 659.73; stroke-dashoffset: 0;"/>
             <defs>
@@ -621,46 +633,46 @@
             </defs>
           </svg>
           <div class="absolute text-center">
-            <span id="dnd-timer-digits" class="text-5xl font-black font-sans tracking-tight text-white">25:00</span>
-            <div class="text-[11px] text-slate-400 uppercase tracking-widest mt-1 font-bold">Unwavering Focus</div>
+            <span id="dnd-timer-digits" class="text-4xl sm:text-5xl font-black font-sans tracking-tight text-white">25:00</span>
+            <div class="text-[10px] sm:text-[11px] text-slate-400 uppercase tracking-widest mt-1 font-bold">Unwavering Focus</div>
           </div>
         </div>
 
-        <div class="text-center mt-6 max-w-xs">
+        <div class="text-center mt-5 max-w-xs">
           <div id="dnd-topic-cat" class="text-xs text-indigo-400 font-bold uppercase tracking-wider">Major Samhitas (Brihattrayi)</div>
-          <h3 id="dnd-topic-name" class="text-base font-bold text-white mt-1">Charaka Samhita - Sutrasthana</h3>
+          <h3 id="dnd-topic-name" class="text-sm sm:text-base font-bold text-white mt-1">Charaka Samhita - Sutrasthana</h3>
         </div>
       </div>
 
-      <div class="flex items-center justify-center space-x-3">
+      <div class="flex items-center justify-center space-x-2.5">
         <button id="dnd-pause-btn" onclick="FocusTimer.isRunning ? FocusTimer.pause() : FocusTimer.resume()" 
-          class="flex-1 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-sm border border-white/15 tap-feedback">
+          class="flex-1 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-xs sm:text-sm border border-white/15 tap-feedback">
           Pause
         </button>
-        <button onclick="FocusTimer.addTime(5)" class="px-4 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-sm border border-white/15 tap-feedback">
+        <button onclick="FocusTimer.addTime(5)" class="px-3.5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-xs sm:text-sm border border-white/15 tap-feedback">
           +5m
         </button>
-        <button onclick="FocusTimer.completeSession()" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-extrabold text-sm shadow-xl shadow-emerald-600/30 tap-feedback">
+        <button onclick="FocusTimer.completeSession()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 tap-feedback">
           Complete
         </button>
       </div>
     </div>
 
     <!-- Session Completion View -->
-    <div id="dnd-congrats-view" class="h-full flex flex-col justify-center items-center text-center p-6 space-y-5 hidden">
-      <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center text-4xl mb-2">
+    <div id="dnd-congrats-view" class="h-full flex flex-col justify-center items-center text-center p-5 space-y-4 hidden">
+      <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center text-3xl mb-1">
         🏆
       </div>
-      <h2 class="text-2xl font-black text-white">Shastra Session Complete!</h2>
-      <p class="text-sm text-slate-300">
+      <h2 class="text-xl sm:text-2xl font-black text-white">Shastra Session Complete!</h2>
+      <p class="text-xs sm:text-sm text-slate-300">
         You logged <strong id="dnd-logged-minutes" class="text-emerald-400 font-bold">25 Minutes</strong> into today's focus hours.
       </p>
 
-      <div class="space-y-2 w-full max-w-xs pt-4">
-        <button onclick="FocusTimer.closeDNDOverlay(); openLogTopicModal();" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm tap-feedback">
+      <div class="space-y-2 w-full max-w-xs pt-3">
+        <button onclick="FocusTimer.closeDNDOverlay(); openLogTopicModal();" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-xs sm:text-sm tap-feedback">
           Mark Topic Completed & Queue Revision
         </button>
-        <button onclick="FocusTimer.closeDNDOverlay()" class="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl text-xs tap-feedback">
+        <button onclick="FocusTimer.closeDNDOverlay()" class="w-full py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl text-xs tap-feedback">
           Return to Dashboard
         </button>
       </div>
@@ -670,19 +682,22 @@
   <!-- ============================================== -->
   <!-- MODAL: STHANA PICKER (QUICK JUMP & STATUS) -->
   <!-- ============================================== -->
-  <div id="modal-sthana-picker" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+  <div id="modal-sthana-picker" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3 max-h-[85vh] flex flex-col">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
         <div>
-          <h3 class="text-base font-extrabold text-white flex items-center gap-1.5">
+          <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-1.5">
             <span>📖 Classical Sthana Picker</span>
           </h3>
-          <p class="text-[11px] text-slate-400">Jump directly to Sthanas or audit completed Adhyayas</p>
+          <p class="text-[10px] sm:text-[11px] text-slate-400">Jump directly to Sthanas or audit completed Adhyayas</p>
         </div>
-        <button onclick="closeModal('modal-sthana-picker')" class="text-slate-400 hover:text-white text-lg">✕</button>
+        <button onclick="closeModal('modal-sthana-picker')" class="text-slate-400 hover:text-white text-lg p-1">✕</button>
       </div>
 
-      <div id="sthana-picker-cards" class="overflow-y-auto space-y-3 pr-1 flex-1">
+      <div id="sthana-picker-cards" class="overflow-y-auto space-y-2.5 pr-1 flex-1">
         <!-- Rendered via JavaScript -->
       </div>
     </div>
@@ -691,22 +706,25 @@
   <!-- ============================================== -->
   <!-- MODAL: USER PROFILE & SWITCH ACCOUNT -->
   <!-- ============================================== -->
-  <div id="modal-profile" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-profile" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-        <h3 class="text-base font-bold text-white">Student Profile & Accounts</h3>
-        <button onclick="closeModal('modal-profile')" class="text-slate-400 hover:text-white">✕</button>
+        <h3 class="text-sm sm:text-base font-bold text-white">Student Profile & Accounts</h3>
+        <button onclick="closeModal('modal-profile')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <!-- Active User Card -->
-      <div class="p-4 bg-[#141d33] rounded-2xl border border-slate-800 flex items-center space-x-3">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-700 flex items-center justify-center text-2xl shrink-0">
+      <div class="p-3.5 bg-[#141d33] rounded-2xl border border-slate-800 flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-950 border border-indigo-700 flex items-center justify-center text-xl shrink-0">
           🌿
         </div>
         <div class="truncate flex-1">
-          <div id="prof-user-name" class="text-sm font-extrabold text-white truncate">Dr. Ananya Sharma</div>
-          <div id="prof-user-email" class="text-xs text-indigo-400 truncate">ananya.bams@ayush.in</div>
-          <div id="prof-user-role" class="text-[10px] text-slate-400 mt-0.5">AIAPGET Aspirant · Target 2027</div>
+          <div id="prof-user-name" class="text-xs sm:text-sm font-extrabold text-white truncate">Dr. Ananya Sharma</div>
+          <div id="prof-user-email" class="text-[11px] text-indigo-400 truncate">ananya.bams@ayush.in</div>
+          <div id="prof-user-role" class="text-[9px] text-slate-400 mt-0.5">AIAPGET Aspirant · Target 2027</div>
         </div>
       </div>
 
@@ -716,7 +734,7 @@
           <span>Saved Profiles on this Device:</span>
           <button onclick="openOnboardingModal()" class="text-indigo-400 font-bold hover:underline">+ Add New</button>
         </div>
-        <div id="prof-accounts-list" class="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+        <div id="prof-accounts-list" class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
           <!-- Populated via JavaScript -->
         </div>
       </div>
@@ -731,24 +749,24 @@
   <!-- ============================================== -->
   <!-- MODAL: LOGIN / ONBOARDING SCREEN -->
   <!-- ============================================== -->
-  <div id="modal-onboarding" class="fixed inset-0 z-50 bg-[#070b19]/95 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-5">
-      <div class="text-center space-y-2">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 to-emerald-600 p-1 flex items-center justify-center shadow-lg">
+  <div id="modal-onboarding" class="fixed inset-0 z-50 bg-[#070b19]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 to-emerald-600 p-1 flex items-center justify-center shadow-lg">
           <img src="icon.svg" alt="Kalasha" class="w-full h-full object-contain">
         </div>
-        <h2 class="text-lg font-black text-white">Welcome to AIAPGET StudyBuddy</h2>
-        <p class="text-xs text-slate-400">Personalized revision, dynamic syllabus audit & focus tracking for BAMS doctors.</p>
+        <h2 class="text-base sm:text-lg font-black text-white">Welcome to AIAPGET StudyBuddy</h2>
+        <p class="text-[11px] text-slate-400">Personalized revision, dynamic syllabus audit & focus tracking for BAMS doctors.</p>
       </div>
 
       <!-- Quick 1-Tap Demo Login Button -->
-      <button onclick="AppState.quickDemoLogin(true)" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-extrabold text-xs shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center space-x-2 tap-feedback">
+      <button onclick="AppState.quickDemoLogin(true)" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-extrabold text-xs shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center space-x-2 tap-feedback">
         <span>⚡ Quick Demo Login (Dr. Ananya Sharma)</span>
       </button>
 
       <div class="relative flex items-center justify-center">
         <div class="border-t border-slate-800 w-full"></div>
-        <span class="bg-[#0f1629] px-3 text-[10px] text-slate-500 uppercase font-bold">Or Create / Sign In</span>
+        <span class="bg-[#0f1629] px-2.5 text-[9px] text-slate-500 uppercase font-bold">Or Sign In with Email</span>
       </div>
 
       <!-- Custom Registration Form -->
@@ -781,11 +799,14 @@
   <!-- ============================================== -->
   <!-- MODAL: EDIT EXAM DATE & TARGETS -->
   <!-- ============================================== -->
-  <div id="modal-edit-targets" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-edit-targets" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Edit Exam Date & Targets</h3>
-        <button onclick="closeModal('modal-edit-targets')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-edit-targets')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -822,11 +843,14 @@
   <!-- ============================================== -->
   <!-- MODAL: LOG TODAY'S STUDIED TOPIC -->
   <!-- ============================================== -->
-  <div id="modal-log-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-log-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Log Studied Topic</h3>
-        <button onclick="closeModal('modal-log-topic')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-log-topic')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
       <p class="text-xs text-slate-400">
         Marks topic completed in syllabus and automatically schedules it into Day 3 Spaced Repetition.
@@ -848,7 +872,7 @@
 
       <div class="flex space-x-2 pt-2">
         <button onclick="closeModal('modal-log-topic')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
-        <button onclick="saveLogTopicModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Log & Queue Revision</button>
+        <button onclick="saveLogTopicModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Log & Queue</button>
       </div>
     </div>
   </div>
@@ -856,11 +880,14 @@
   <!-- ============================================== -->
   <!-- MODAL: MANUAL OFFLINE STUDY LOGGER -->
   <!-- ============================================== -->
-  <div id="modal-offline-log" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-offline-log" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Log Offline Study Hours</h3>
-        <button onclick="closeModal('modal-offline-log')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-offline-log')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -877,7 +904,7 @@
 
       <div class="flex space-x-2 pt-2">
         <button onclick="closeModal('modal-offline-log')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
-        <button onclick="saveManualStudyHours()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Offline Hours</button>
+        <button onclick="saveManualStudyHours()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold tap-feedback">Save Hours</button>
       </div>
     </div>
   </div>
@@ -885,11 +912,14 @@
   <!-- ============================================== -->
   <!-- MODAL: ADD CUSTOM TOPIC TO SUBJECT -->
   <!-- ============================================== -->
-  <div id="modal-add-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-add-topic" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Add Topic to <span id="add-topic-subject-name" class="text-indigo-400">Subject</span></h3>
-        <button onclick="closeModal('modal-add-topic')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-add-topic')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -928,11 +958,14 @@
   <!-- ============================================== -->
   <!-- MODAL: ADD CUSTOM SUBJECT / SAMHITA -->
   <!-- ============================================== -->
-  <div id="modal-add-subject" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4">
+  <div id="modal-add-subject" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Add Custom Subject / Samhita</h3>
-        <button onclick="closeModal('modal-add-subject')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-add-subject')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -967,7 +1000,7 @@
 
       <div class="flex space-x-2 pt-2">
         <button onclick="closeModal('modal-add-subject')" class="flex-1 py-2.5 bg-[#161f36] text-slate-300 rounded-xl text-xs font-semibold tap-feedback">Cancel</button>
-        <button onclick="saveAddSubjectModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Create Subject</button>
+        <button onclick="saveAddSubjectModal()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tap-feedback">Create</button>
       </div>
     </div>
   </div>
@@ -975,11 +1008,14 @@
   <!-- ============================================== -->
   <!-- MODAL: SETTINGS & DATA MANAGEMENT -->
   <!-- ============================================== -->
-  <div id="modal-settings" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="bg-[#0f1629] rounded-3xl w-full max-w-sm p-6 border border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+  <div id="modal-settings" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
+    <div class="modal-sheet-content bg-[#0f1629] rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-5 border border-slate-800 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
+      <!-- Drag handle for mobile -->
+      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto sm:hidden -mt-1 mb-1"></div>
+
       <div class="flex items-center justify-between pb-1 border-b border-slate-800">
         <h3 class="text-sm font-bold text-white">Settings & Cloud Management</h3>
-        <button onclick="closeModal('modal-settings')" class="text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeModal('modal-settings')" class="text-slate-400 hover:text-white p-1">✕</button>
       </div>
 
       <div class="space-y-4 text-xs">
@@ -1005,10 +1041,10 @@
         <div class="space-y-2">
           <label class="block font-bold text-slate-200">Data Portability (Offline JSON):</label>
           <div class="grid grid-cols-2 gap-2">
-            <button onclick="exportDataBackup()" class="py-2 px-3 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 rounded-xl font-bold border border-indigo-800 tap-feedback">
+            <button onclick="exportDataBackup()" class="py-2 px-3 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 rounded-xl font-bold border border-indigo-800 tap-feedback text-center">
               📥 Export Backup
             </button>
-            <label class="py-2 px-3 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 rounded-xl font-bold border border-emerald-800 text-center cursor-pointer tap-feedback">
+            <label class="py-2 px-3 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 rounded-xl font-bold border border-emerald-800 text-center cursor-pointer tap-feedback block">
               📤 Import Backup
               <input type="file" accept=".json" onchange="importDataBackup(event)" class="hidden">
             </label>
@@ -1037,7 +1073,7 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed top-4 left-4 right-4 z-50 max-w-sm mx-auto pointer-events-none flex flex-col items-center space-y-2"></div>
+  <div id="toast-container" class="fixed top-3 left-3 right-3 z-50 max-w-sm mx-auto pointer-events-none flex flex-col items-center space-y-2"></div>
 
   <!-- Scripts -->
   <script src="supabaseClient.js"></script>

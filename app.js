@@ -707,7 +707,10 @@ function renderHeaderUser() {
   const userNameEl = document.getElementById('header-user-name');
   const userAvatarEl = document.getElementById('header-user-avatar');
   if (userNameEl && AppState.currentUser) {
-    userNameEl.textContent = AppState.currentUser.name;
+    const raw = AppState.currentUser.name || 'Student';
+    const clean = raw.replace(/^Dr\.\s*/i, '');
+    const firstWord = clean.split(' ')[0] || clean;
+    userNameEl.textContent = 'Dr. ' + (firstWord.length > 8 ? firstWord.substring(0, 7) + '…' : firstWord);
   }
   if (userAvatarEl && AppState.currentUser) {
     userAvatarEl.textContent = AppState.currentUser.avatar || '🌿';
@@ -804,11 +807,11 @@ function renderDashboard(stats) {
     } else {
       dueSnapshot.innerHTML = dueList.slice(0, 3).map(rev => `
         <div class="flex items-center justify-between p-3 bg-[#131d33] rounded-2xl border border-slate-800">
-          <div class="truncate mr-2">
+          <div class="truncate mr-2 min-w-0">
             <div class="text-xs font-semibold text-slate-100 truncate">${rev.topicName}</div>
             <div class="text-[10px] text-slate-400">${rev.dueDate < todayStr ? '<span class="text-rose-400 font-bold">⚠️ Overdue</span>' : 'Due Today'} · Int ${rev.intervalDays}d</div>
           </div>
-          <button onclick="switchTab('revisions')" class="shrink-0 text-xs px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium tap-feedback">
+          <button onclick="switchTab('revisions')" class="shrink-0 text-xs px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium tap-feedback">
             Review
           </button>
         </div>
@@ -837,6 +840,21 @@ let syllabusCategoryFilter = 'brihattrayi';
 let syllabusPriorityFilter = 'all';
 let syllabusStatusFilter = 'all';
 let syllabusSearchQuery = '';
+
+function switchSyllabusCategory(category) {
+  syllabusCategoryFilter = category;
+  ['brihattrayi', 'laghutrayi', 'subjects'].forEach(c => {
+    const btn = document.getElementById(`syl-tab-${c}`);
+    if (btn) {
+      if (c === category) {
+        btn.className = 'py-2 px-1 rounded-xl text-center tap-feedback transition bg-[#1c2742] text-indigo-300 font-bold';
+      } else {
+        btn.className = 'py-2 px-1 rounded-xl text-center tap-feedback transition text-slate-400 font-medium hover:text-slate-200';
+      }
+    }
+  });
+  renderSyllabus(calculatePaceAndStats());
+}
 
 function renderSyllabus(stats) {
   const pendTopicsEl = document.getElementById('syl-pending-topics');
@@ -897,19 +915,19 @@ function renderSyllabus(stats) {
     html += `
       <div id="subject-card-${subject.id}" class="bg-[#0f1629] rounded-3xl border border-slate-800 shadow-sm overflow-hidden mb-4">
         <!-- Subject Header with Hindi & English titles -->
-        <div class="p-4 bg-gradient-to-r from-[#141c33] to-[#16223d] border-b border-slate-800 flex items-center justify-between">
-          <div class="flex-1 pr-2">
-            <div class="flex items-center space-x-2">
-              <span class="text-sm font-extrabold text-white">${subject.sanskritTitle || subject.title}</span>
+        <div class="p-3.5 sm:p-4 bg-gradient-to-r from-[#141c33] to-[#16223d] border-b border-slate-800 flex items-center justify-between">
+          <div class="flex-1 pr-2 min-w-0">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+              <span class="text-xs sm:text-sm font-extrabold text-white truncate">${subject.sanskritTitle || subject.title}</span>
               <span class="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold ${
                 subject.priority === 'High-Yield' ? 'bg-rose-950/70 border border-rose-800/80 text-rose-300' :
                 subject.priority === 'Core' ? 'bg-indigo-950/70 border border-indigo-800/80 text-indigo-300' :
                 'bg-emerald-950/70 border border-emerald-800/80 text-emerald-300'
               }">${subject.priority}</span>
             </div>
-            <div class="text-xs text-indigo-400 font-medium mt-0.5">${subject.title}</div>
+            <div class="text-[11px] sm:text-xs text-indigo-400 font-medium mt-0.5 truncate">${subject.title}</div>
           </div>
-          <button onclick="openAddTopicModal('${subject.id}')" class="text-xs px-2.5 py-1 bg-[#1c2742] border border-slate-700 rounded-xl text-slate-200 hover:bg-[#253356] font-medium tap-feedback shrink-0 flex items-center space-x-1">
+          <button onclick="openAddTopicModal('${subject.id}')" class="text-xs px-2.5 py-1.5 bg-[#1c2742] border border-slate-700 rounded-xl text-slate-200 hover:bg-[#253356] font-medium tap-feedback shrink-0 flex items-center space-x-1">
             <span>+ Topic</span>
           </button>
         </div>
@@ -925,20 +943,20 @@ function renderSyllabus(stats) {
               <div id="topic-item-${topic.id}" class="p-3.5 hover:bg-[#141d33] transition">
                 <div class="flex items-center justify-between">
                   <!-- Checkbox & Topic Info -->
-                  <div class="flex items-start space-x-3 flex-1 mr-2">
+                  <div class="flex items-start space-x-2.5 flex-1 mr-2 min-w-0">
                     <input type="checkbox" ${topic.completed ? 'checked' : ''} 
                       onchange="toggleTopicCompletion('${subject.id}', '${topic.id}', this.checked)"
-                      class="mt-1 w-4 h-4 text-emerald-500 rounded border-slate-700 bg-slate-900 focus:ring-emerald-500 cursor-pointer">
-                    <div class="flex-1 cursor-pointer" onclick="toggleSubtopicAccordion('${topic.id}')">
-                      <div class="flex items-center space-x-2">
-                        <span class="text-xs font-bold ${topic.completed ? 'line-through text-slate-500' : 'text-slate-100'}">${topic.sanskrit || topic.name}</span>
-                        <span class="text-[9px] px-1.5 py-0.2 rounded font-semibold ${
+                      class="mt-1 w-4 h-4 text-emerald-500 rounded border-slate-700 bg-slate-900 focus:ring-emerald-500 cursor-pointer shrink-0">
+                    <div class="flex-1 cursor-pointer min-w-0" onclick="toggleSubtopicAccordion('${topic.id}')">
+                      <div class="flex items-center space-x-2 flex-wrap gap-y-0.5">
+                        <span class="text-xs font-bold leading-tight ${topic.completed ? 'line-through text-slate-500' : 'text-slate-100'}">${topic.sanskrit || topic.name}</span>
+                        <span class="text-[9px] px-1.5 py-0.2 rounded font-semibold shrink-0 ${
                           topic.priority === 'High-Yield' ? 'text-rose-400 bg-rose-950/60 border border-rose-900/60' :
                           topic.priority === 'Core' ? 'text-indigo-400 bg-indigo-950/60 border border-indigo-900/60' :
                           'text-emerald-400 bg-emerald-950/60 border border-emerald-900/60'
                         }">${topic.priority}</span>
                       </div>
-                      <div class="text-[11px] text-slate-400 font-sans mt-0.5">${topic.name}</div>
+                      <div class="text-[11px] text-slate-400 font-sans mt-0.5 truncate">${topic.name}</div>
                       
                       <!-- Subtopic count pill -->
                       <div class="flex items-center space-x-2 mt-1">
@@ -1357,8 +1375,7 @@ function jumpToSthana(subjectId, topicId) {
 
   const subject = AppState.data.syllabus.find(s => s.id === subjectId);
   if (subject) {
-    syllabusCategoryFilter = subject.category;
-    renderAll();
+    switchSyllabusCategory(subject.category);
   }
 
   setTimeout(() => {
@@ -1377,8 +1394,7 @@ function jumpToSubject(subjectId) {
 
   const subject = AppState.data.syllabus.find(s => s.id === subjectId);
   if (subject) {
-    syllabusCategoryFilter = subject.category;
-    renderAll();
+    switchSyllabusCategory(subject.category);
   }
 
   setTimeout(() => {
